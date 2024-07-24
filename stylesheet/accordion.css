@@ -1,0 +1,38 @@
+.accordion-search-box{
+    padding: 30px;
+    margin-bottom: 40px;
+    border-radius: 10px; 
+}
+.accordion { 
+	opacity: 0; 
+	display: none; 
+	animation: fadeInOut 0.5s ease-in-out; 	
+} 
+.accordion.visible { 
+	opacity: 1; 
+	display: block; 
+} 
+@keyframes fadeInOut { 
+	0% { 
+		opacity: 0; 
+		display: none; 
+	} 
+
+	25% { 
+		opacity: 0.25; 
+		display: block; 
+	} 
+	50% { 
+		opacity: 0.5; 
+		display: block; 
+	} 
+	75% { 
+		opacity: 0.75; 
+		display: block; 
+	} 
+
+	100% { 
+		opacity: 1; 
+		display: block; 
+	} 
+}

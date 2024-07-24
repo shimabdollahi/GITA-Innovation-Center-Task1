@@ -1,0 +1,112 @@
+
+
+/* The Modal (background) */
+.modal {
+  display: none; /* Hidden by default */
+  position: fixed; /* Stay in place */
+  z-index: 1; /* Sit on top */
+  padding-top: 100px; /* Location of the box */
+  left: 0;
+  top: 0;
+  width: 100%; /* Full width */
+  height: 100%; /* Full height */
+  overflow: auto; /* Enable scroll if needed */
+  background-color: rgb(0,0,0); /* Fallback color */
+  background-color: rgba(0,0,0,0.6); /* Black w/ opacity */
+}
+/* Modal Content */
+.modal-content {
+  position: relative;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 0;
+  padding-bottom: 40px;
+  border: 1px solid #888;
+  width: 50%;
+  box-shadow: 0 4px 8px 0 rgba(0,0,0,0.2),0 6px 20px 0 rgba(0,0,0,0.19);
+  -webkit-animation-name: animatetop;
+  -webkit-animation-duration: 0.4s;
+  animation-name: animatetop;
+  animation-duration: 0.4s;
+  border-radius: 10px;
+}
+.modal-content.show{
+  width: 30%;
+  font-size: 25px;
+  line-height: 40px;
+}
+.modal-content.delete{
+  width: 30%;
+  line-height: 40px;
+}
+.modal-content.edit , .modal-content.add{
+  width: 40%;
+  font-size: 25px;
+  line-height: 30px;
+}
+
+/* Add Animation */
+@-webkit-keyframes animatetop {
+  from {top:-300px; opacity:0} 
+  to {top:0; opacity:1}
+}
+
+@keyframes animatetop {
+  from {top:-300px; opacity:0}
+  to {top:0; opacity:1}
+}
+
+/* The Close Button */
+.close {
+  color: #999;
+  font-size: 23px;
+  padding: 7px 5px;
+}
+.close-i-bg{
+  background-color: #efefef;
+  border-radius: 50%;
+}
+.close:hover,
+.close:focus {
+  color: #000;
+  /* text-decoration: none; */
+  cursor: pointer;
+}
+.modal-header {
+  padding: 10px 16px 0px 16px;
+}
+.modal-body {
+    margin: 0px 40px;
+}
+.delete .modal-body{
+  text-align: center;
+}
+.modal-btn-div{
+  display: flex;
+  justify-content: center;
+}
+.modal-btn-div input{
+  margin: 0px;
+  margin-left: 5px;
+}
+.edit .modal-btn{
+  margin-top: 30px;
+  width: 40%;
+}
+.modal-btn{
+  width: 40%;
+}
+.modal-input{
+  background-color: #faf8f8;
+  width: 50%;
+}
+.show-div{
+  background-color: #faf8f8;
+  border-radius: 10px;
+  padding:5px 20px ;
+  font-size: 25px;
+  width: 95%;
+  margin: 10px;
+  box-sizing: border-box;
+}
+
