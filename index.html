@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl" >
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://necolas.github.io/normalize.css/latest/normalize.css">
+    <link rel="stylesheet" href="stylesheet/all.min.css">
+    <link rel="stylesheet" href="stylesheet/style.css">
+    <link rel="stylesheet" href="stylesheet/modal.css">
+    <link rel="stylesheet" href="stylesheet/accordion.css">
+    <link rel="stylesheet" href="stylesheet/table.css">
+    <!-- <link rel="stylesheet" href="stylesheet/accordion.css"> -->
+    <script src="/js/modal.js" defer ></script>
+    <script src="/js/record.js" defer ></script>
+    <script src="/js/accordion.js" defer></script>
+    <script src="/js/map.js" defer></script>
+    <script src="https://maps.googleapis.com/maps/api/js?key=AIzaSyDhSLTfNZRD-0JnFrEimPOksPH84kr0Bks&callback=recordMap" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.5.0/Chart.min.js" defer></script>
+    <!-- <script src="/js/mapGoogleApi.js" defer></script> -->
+    <!-- <script src="/js/mapGoogleApi.js" defer></script> -->
+    
+    <script src="/js/chart.js" defer></script>
+
+    <title>Gita Task1</title>
+</head>
+<body>
+    <main>
+      <!-- search accordion section -->
+      <section> 
+        <div class="container ">  
+          <button onclick="toggleSearchRecordsAccordion('search-records-accordion')" class="btn wide-btn b-dark">جستجو</button>
+          <div id="search-records-accordion" class="b-light accordion-search-box accordion">
+            <div>
+              <form action="">
+                <div class="d-flex" >
+                 <div>
+                  <label for="first-name-search" >نام</label> <input type="text" id="first-name-search">
+                 </div>
+                <div>
+                  <label for="last-name-search" >نام خانوادگی</label> <input type="text" id="last-name-search">
+                </div>
+                <div>
+                  <label for="national-id-search">کدملی</label> <input type="number" id="national-id-search">
+                </div>
+                </div>
+                <button id="search-records-submit" class="btn b-dark c-white" type="button" onclick="submitSearchRec()">جستجو</button>
+              </form>
+            </div>
+          </div>      
+          </div>
+      </section>
+
+        <!-- add new record section  -->
+        <section class="container">
+            <button id="add-record" class="btn wide-btn b-dark">افزودن</button>
+        </section>
+
+        <!-- add record modal -->
+        <section>
+            <!-- The Modal -->
+            <div id="addRecordModal" class="modal">
+              <!-- Modal content -->
+              <div class=" modal-content add">
+                <div class="modal-header">
+                      <i class="close fa-solid fa-xmark" onclick="closeRecModal('addRecordModal');"></i>
+                </div>
+                <div class="modal-body">
+                    <h2>رکورد جدید</h2>
+                    <form action="">
+                       <div>
+                        <label for="first_name_input">نام </label> <input type="text" id="first_name_input" class="modal-input" name="first_name" required placeholder="نام را وارد کنید">
+                       </div>
+                        <div>
+                          <label for="last_name_input">نام خانوادگی </label> <input type="text" id="last_name_input" class="modal-input" name="last_name" required placeholder="نام خانوادگی را وارد کنید">
+                        </div>
+                        <div>
+                          <label for="national_id_input">کد ملی </label> <input type="number" id="national_id_input" class="modal-input" name="national_id" required placeholder="کد ملی را وارد کنید" max="9999999999">
+                        </div>
+                        <div class="modal-btn-div">                          
+                            <input id="add-rec-submit" type="submit" value="افزودن" class="btn modal-btn b-dark c-white" onclick="addRecConfirm()">
+                            <button type="button" class="btn modal-btn" onclick="closeRecModal('addRecordModal');">بستن</button>
+                        </div>
+                    </form>                   
+                </div>                
+              </div>            
+            </div>            
+        </section>
+
+        <!-- delete record section -->
+        <section>             
+            <!-- The Modal -->
+            <div id="deleteRecordModal" class="modal">
+            
+              <!-- Modal content -->
+              <div class="modal-content delete">
+                <div class="modal-header">                  
+                    <i class="close fa-solid fa-xmark" onclick="closeRecModal('deleteRecordModal');"></i>                  
+                </div>
+                <div class="modal-body">
+                    <h2>آیا از حذف این رکورد اطمینان دارید؟</h2>
+                    <div class="">
+                        <button id="del-rec-confirm" class="btn b-dark c-white modal-btn" onclick="delRecConfirm()">بله</button>
+                        <button class="btn modal-btn" onclick="closeRecModal('deleteRecordModal');">خیر</button>
+                    </div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- show record section -->
+        <section>   
+            <!-- The Modal -->
+            <div id="showRecordModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content show c-dark">
+                <div class="modal-header">
+                    <i class="close fa-solid fa-xmark" onclick="closeRecModal('showRecordModal');"></i>
+                </div>
+                <div class="modal-body">
+                    
+                        <div class="mb-20" >
+                            <div class="show-div">
+                                <span>نام</span>
+                                <span id="display-name-span" class="m-10"></span>
+                            </div>
+                            <div class="show-div">
+                                <span >نام خانوادگی</span>
+                                <span id="display-family-span" class="m-10"></span>
+                            </div>
+                            <div class="show-div">
+                                <span >کد ملی</span>
+                                <span id="display-national-id-span" class="m-10"> </span>
+                            </div>
+                        </div>
+                        <div class="modal-btn-div">
+                          <button class="btn modal-btn" onclick="closeRecModal('showRecordModal');">بستن</button>
+                        </div>                       
+                    
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- edit record modal -->
+        <section>   
+            <!-- The Modal -->
+            <div id="editRecordModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content edit">
+                <div class="modal-header">
+                      <i class="close fa-solid fa-xmark" onclick="closeRecModal('editRecordModal');"></i>
+                </div>
+                <div class="modal-body">
+                    <h2>ویرایش</h2>
+                    <form action="" >
+                      <div >
+                        <div>
+                          <label for="first_name_edit_input">نام </label> <input type="text" id="first_name_edit_input" class="modal-input" name="first_name" placeholder="نام را وارد کنید">
+                        </div>
+                        <div>
+                          <label for="last_name_edit_input">نام خانوادگی </label> <input type="text" id="last_name_edit_input" class="modal-input" name="last_name" placeholder="نام خانوادگی را وارد کنید">
+                        </div>
+                        <div>
+                          <label for="national_id_edit_input">کد ملی </label> <input type="number" id="national_id_edit_input" class="modal-input" name="national_id" placeholder="کد ملی را وارد کنید" max="9999999999">
+                        </div>
+                      </div>
+                      <div class="modal-btn-div">
+                          <input id="edit-rec-confirm" type="submit" value="تایید" class="btn b-dark c-white modal-btn" onclick="editRecConfirm()">
+                          <button type="button" class="btn modal-btn" onclick="closeRecModal('editRecordModal');">بستن</button>
+                      </div>
+                  </form>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- map of record modal -->
+        <section>   
+            <!-- The Modal -->
+            <div id="mapRecordModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                    <i class="close fa-solid fa-xmark" onclick="closeRecModal('mapRecordModal');"></i>
+                </div>
+                <div class="modal-body">
+                    <h2>نقشه</h2>
+                    <div id="googleMap"></div>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- chart record modal -->
+        <section>   
+            <!-- The Modal -->
+            <div id="chartRecordModal" class="modal">
+              <!-- Modal content -->
+              <div class="modal-content">
+                <div class="modal-header">
+                      <i class="close fa-solid fa-xmark" onclick="closeRecModal('chartRecordModal');"></i>
+                </div>
+                <div class="modal-body" id="chartModalBody">
+                    <h2>نمودار</h2>
+                    <canvas id="recordChart" ></canvas>
+                </div>
+              </div>
+            </div>
+        </section>
+
+        <!-- table of records section -->
+        <section>
+          <div class="container">
+            <table  class="records-table rounded-corners c-dark">
+                <thead>
+                    <tr >
+                        <th class="b-dark c-white">ردیف</th>
+                        <th class="b-dark c-white">نام</th>
+                        <th class="b-dark c-white">نام خانوادگی</th>
+                        <th class="b-dark c-white">کد ملی</th>
+                        <th class="b-dark c-white">عملیات</th>
+                    </tr>
+                </thead>
+                <tbody id="records-table-body"></tbody>
+            </table>
+          </div>
+        </section> 
+    </main>
+</body>
+</html>
